@@ -233,12 +233,15 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
         };
         var iplatlong = function (data, status){
                     //console.log(data.city);
+            console.log(data);
                     $scope.ipcity=data.city;
+                    console.log($scope.ipcity);
                 RestService.upcomingevents($scope.ipcity).success(home);
                     };
                     var ipjson = function (data, status){
                         //console.log(data.ip);
                         $scope.myip=data.ip;
+                        console.log($scope.myip);
                         RestService.getiplatlongjson(data.ip).success(iplatlong);
                     };
                     RestService.getipjson().success(ipjson);
@@ -504,11 +507,13 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     //savedevents#########################3
 })
 
-.controller('UpdateeventCtrl', function($scope, $stateParams, RestService) {
+.controller('UpdateeventCtrl', function($scope, $stateParams, RestService, CategoryService, TopicService) {
     $scope.loginlogout="Login";
     $scope.isloggedin=0;
-    
+    $scope.form=[];
+    $scope.value=$stateParams.id;
 	        var user = function (data, status) {
+	            console.log("organizer");
 	            console.log(data);
 	            $scope.organizername = data.firstname;
 	            $scope.form.organizer = data.id;
@@ -526,7 +531,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	            $scope.form = {};
 	            $scope.form = data;
 	            $scope.form.categoty = data.categoty;
-	            $scope.ipath = "views/f1.php?id=event" + data.organizerid + "&logo=" + data.logo;
+	            //$scope.ipath = "views/f1.php?id=event" + data.organizerid + "&logo=" + data.logo;
 	        };
 
 	        var topics = function (data, status) {
@@ -567,7 +572,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 })
 
 
-.controller('CreateeventCtrl', function($scope, $stateParams, RestService, TopicService, CategoryService) {
+.controller('CreateeventCtrl', function($scope, $stateParams, RestService, TopicService, CategoryService, $filter) {
     //aunthenticate
         var user=function(data,status){
             console.log(data);
@@ -655,6 +660,45 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
         };
     
     $scope.onsubmit = function (form) {
+        
+        $scope.allvalidation = [{
+	                field: $scope.form.title,
+	                validation: ""
+             }, {
+	                field: $scope.form.venue,
+	                validation: ""
+             }, {
+	                field: $scope.form.street,
+	                validation: ""
+             }, {
+	                field: $scope.form.pin,
+	                validation: ""
+             }, {
+	                field: $scope.form.city,
+	                validation: ""
+             }, {
+	                field: $scope.form.state,
+	                validation: ""
+             }, {
+	                field: $scope.form.startdate,
+	                validation: ""
+             }, {
+	                field: $scope.form.starttime,
+	                validation: ""
+             }, {
+	                field: $scope.form.endtime,
+	                validation: ""
+             }, {
+	                field: $scope.form.category,
+	                validation: ""
+             }, {
+	                field: $scope.form.topic,
+	                validation: ""
+             }];
+
+        var check = formvalidation();
+	            console.log(check);
+	            if (check) {
             console.log(form);
            // alert(form);
         form.ticketname=form.tickets[0].name;
@@ -672,7 +716,60 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
         //form.category=form.category.join();
         //form.topic=form.topic.join();
         RestService.createevent(form).success(created);
+                }   
         };
+        
+	        //####################################################3DATE VALIDATION###########################################################
+	        $scope.startdatechange = function (startdate) {
+	            console.log(startdate);
+	            var d = new Date();
+	            console.log("todays date");
+	            $scope.todaysdate = $filter('date')(d, 'yyyy-MM-dd');
+	            console.log($scope.todaysdate);
+	            console.log("Result");
+	            if (startdate < $scope.todaysdate) {
+	                $scope.invalidmsg1 = "Invalid Date";
+	                console.log("date invalid");
+	                $scope.form.startdate.validation = "ng-dirty";
+	            } else {
+	                $scope.invalidmsg1 = "";
+	                console.log("valid date");
+	            }
+
+
+	        };
+
+	        $scope.enddatechange = function (startdate) {
+	            console.log(startdate);
+	            var d = new Date();
+	            console.log("todays date");
+	            $scope.todaysdate = $filter('date')(d, 'yyyy-MM-dd');
+	            console.log($scope.todaysdate);
+	            console.log("Result");
+	            if (startdate < $scope.todaysdate || startdate < $scope.form.startdate) {
+	                $scope.invalidmsg = "Invalid Date";
+	                console.log("date invalid");
+	                $scope.form.startdate.validation = "ng-dirty";
+	            } else {
+	                $scope.invalidmsg = "";
+	                console.log("valid date");
+	            }
+
+
+	        };
+	        //####################################################3DATE VALIDATION###########################################################
+    function formvalidation() {
+	            var isvalid2 = true;
+	            for (var i = 0; i < $scope.allvalidation.length; i++) {
+	                console.log("checking");
+	                console.log($scope.allvalidation[i].field);
+	                if ($scope.allvalidation[i].field == "" || !$scope.allvalidation[i].field) {
+	                    $scope.allvalidation[i].validation = "ng-dirty";
+	                    isvalid2 = false;
+	                }
+	            }
+	            return isvalid2;
+	        }
     // on submit
     
     

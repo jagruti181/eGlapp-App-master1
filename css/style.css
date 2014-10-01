@@ -14,6 +14,7 @@ h6 {
     font-family: 'Oswald';
 }
 /*my css*/
+
 .mrt3{
     margin-top: 3px;
 }
@@ -80,7 +81,7 @@ padding: 10px;
     width: 200px;
 }
 .invalidmsg{
-    color: red;
+    color: red !important;
 }
 .date1{
     width: 198px !important;

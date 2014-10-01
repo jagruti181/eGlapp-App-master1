@@ -7,27 +7,27 @@
            </div>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Event Title*</span>
-                <input type="text" placeholder="Event Title*" ng-model="form.title" required>
+                <input type="text" placeholder="Event Title*" ng-model="form.title" ng-class="allvalidation[0].validation" required>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Venue*</span>
-                <input type="text" placeholder="Venue" ng-change="getmap(form.venue,form.location,form.street,form.pin,form.city,form.state)" ng-model="form.venue" required>
+                <input type="text" placeholder="Venue" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.venue" ng-class="allvalidation[1].validation" required>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Street Name*</span>
-                <input type="text" placeholder="Street Name" ng-change="getmap(form.venue,form.location,form.street,form.pin,form.city,form.state)" ng-model="form.street" required>
+                <input type="text" placeholder="Street Name" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.street" ng-class="allvalidation[2].validation" required>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Pin Code*</span>
-                <input type="text" placeholder="Location" ng-change="getmap(form.venue,form.location,form.street,form.pin,form.city,form.state)" ng-model="form.pin" required>
+                <input type="text" placeholder="Location" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.pin" ng-class="allvalidation[3].validation" required>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">City*</span>
-                <input type="text" placeholder="Location" ng-change="getmap(form.venue,form.location,form.street,form.pin,form.city,form.state)" ng-model="form.city" required>
+                <input type="text" placeholder="Location" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.city" ng-class="allvalidation[4].validation" required>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">State*</span>
-                <input type="text" placeholder="State" ng-change="getmap(form.venue,form.location,form.street,form.pin,form.city,form.state)" ng-model="form.state" required>
+                <input type="text" placeholder="State" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.state" ng-class="allvalidation[5].validation" required>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Lat</span>
@@ -49,13 +49,14 @@
             
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Start Date</span>
-                <input type="date" placeholder="Start Date" ng-model="form.startdate">
+                <input type="date" placeholder="Start Date" ng-model="form.startdate" ng-change="startdatechange(form.startdate)" ng-class="allvalidation[6].validation">
+                <p class="invalidmsg">{{invalidmsg1}}</p>
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
                     Start Time*
                 </div>
-                <select ng-model="form.starttime" required>					
+                <select ng-model="form.starttime" ng-class="allvalidation[7].validation" required>					
                     <option value="0:30">0:30</option>
                     <option value="1:00">1:00</option>
                     <option value="1:30">1:30</option>
@@ -108,13 +109,14 @@
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">End Date</span>
-                <input type="date" placeholder="End Date" ng-model="form.enddate">
+                <input type="date" placeholder="End Date" ng-change="enddatechange(form.enddate)" ng-model="form.enddate">
+                <p class="invalidmsg">{{invalidmsg}}</p>
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
                     End Time*
                 </div>
-                <select ng-model="form.endtime" required>					
+                <select ng-model="form.endtime" ng-class="allvalidation[8].validation" required>					
                     <option value="0:30">0:30</option>
                     <option value="1:00">1:00</option>
                     <option value="1:30">1:30</option>
@@ -296,7 +298,7 @@
                     <div class="input-label">
                         Event Type
                     </div>
-                    <select ng-model="form.category" id="category" required>
+                    <select ng-model="form.category" id="category" ng-class="allvalidation[9].validation" required>
                         <option ng-repeat="category in categories" value="{{category.id}}">{{category.name}}</option>
                     </select>
                 </label>
@@ -304,7 +306,7 @@
                     <div class="input-label">
                         Event Topic
                     </div>
-                    <select ng-model="form.topic" id="topic" required>
+                    <select ng-model="form.topic" id="topic" ng-class="allvalidation[10].validation" required>
                        <option ng-repeat="topic in topics" value="{{topic.id}}">{{topic.name}}</option>
                 </select>
                 </label>

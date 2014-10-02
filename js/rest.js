@@ -40,6 +40,41 @@ var restservicemod = angular.module('restservicemod', [])
         getiplatlongjson: function(data){
             return $http.get(adminurl+"user/getlocationip?ip="+data,{});
         },
+        update: function (data) {
+            return $http({
+                url: 'http://localhost/eglapp11/admin/index.php/event/update',
+                method: "POST",
+               data: {'id':data.id,
+                      'title':data.title,
+                      'locationlat':data.locationlat,
+                      'locationlon':data.locationlon,
+                      'venue':data.venue,
+                      'location':data.location,
+                      'startdate':data.startdate,
+                      'enddate':data.enddate,
+                      'description':data.description,
+                      'organizer':data.organizer,
+                      'listingtype':data.listingtype,
+                      'showremainingticket':data.showremainingticket,
+                      'logo':data.logo,
+                      'category':data.category,
+                      'topic':data.topic,
+                      'starttime':data.starttime,
+                      'endtime':data.endtime,
+                      'ticketname':data.ticketname,
+                      'ticketqty':data.ticketqty,
+                      'ticketprice':data.ticketprice,
+                      'ticketpricetype':data.ticketpricetype,
+                      'email':data.email,
+                      'publicemail':data.publicemail,
+                      'state':data.state,
+                      'pin':data.pin,
+                      'street':data.street,
+                      'city':data.city,
+                      'above18':data.above18,
+                      'sponsorship':data.sponsorship}
+            });
+        },
         saveorganizer: function (data) {
             return $http.get(adminurl+"user/update",{params:data});
         },
@@ -61,6 +96,41 @@ var restservicemod = angular.module('restservicemod', [])
         },
         find: function (data) {
             return $http.get(adminurl+"event/showalleventsbyuserid",{params: {id:data}});
+        },
+        getemail: function(uid,eid){
+            return $http.get(adminurl+"event/getemail?uid="+uid+"&eid="+eid,{});
+            
+        },
+        deleteall: function(uid,eid){
+            return $http.get(adminurl+"event/deleteall?uid="+uid+"&eid="+eid,{});
+            
+        },
+        deleteemail: function(id){
+            return $http.get(adminurl+"event/deleteemail?id="+id,{});
+            
+        },
+        sendoneemail: function(data){
+            return $http.get(adminurl+"event/sendoneemail?email="+data,{});
+            
+        },
+        deleteselected: function(id){
+            return $http.get(adminurl+"event/deleteselected?ids="+id,{});
+            
+        },
+        sendselected: function(id){
+            return $http.get(adminurl+"event/sendselected?ids="+id,{});
+            
+        },
+        validatesponsor: function(user,event){
+            return $http.get(adminurl+"event/validatesponsor?user="+user+"&event="+event,{});
+            
+        },
+        savesponsor: function(form){
+            return $http.get(adminurl+"sponsor/create",{params:form});
+        },
+        getsponsorevent: function(category,topic){
+            return $http.get(adminurl+"event/getsponsorevent?category="+category+"&topic="+topic,{});
+            
         },
         findone: function (data) {
             return $http.get(adminurl+"event/findone?id="+data,{});

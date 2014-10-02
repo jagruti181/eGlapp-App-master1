@@ -19,7 +19,7 @@
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Pin Code*</span>
-                <input type="text" placeholder="Location" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.pin" ng-class="allvalidation[3].validation" required>
+                <input type="text" placeholder="Location" ng-pattern="phoneNumberPattern" ng-change="getmap(form.venue,form.street,form.pin,form.city,form.state)" ng-model="form.pin" ng-class="allvalidation[3].validation" required>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">City*</span>
@@ -241,17 +241,18 @@
                             <div class="ticketdiv">
                             <table class="table" style="width: 100%;">
                                 <tr>
-                                    <th>Ticket Name*</th>
-                                    <th>Quantity Available</th>
-                                    <th>Price</th>
+                                    <th style="border-right: 3px solid;">Ticket Name*</th>
+                                    <th style="border-right: 3px solid;">Quantity Available</th>
+                                    <th style="border-right: 3px solid;">Price</th>
                                     <th colspan="2">Action</th>
                                 </tr>
+                                {{form.tickets[0].name}}
                                 <tr ng-repeat="ticket in form.tickets">
-                                    <td><input type="text" ng-model="ticket.name" placeholder="Example:Early Bird"></td>
-                                    <td><input type="text" ng-model="ticket.qty" placeholder="100"></td>
-                                    <td><input type="text" ng-model="ticket.price" ng-show="ticket.pricetype!='Free'"></td>
-                                    <td><label ng-model="ticket.pricetype">{{ticket.pricetype}}</label></td>
-                                    <td><a class="button button-block button-positive" ng-click="remove($index)">Delete</a></td>
+                                    <td><input type="text" style="text-align: center;border-right: 3px solid;" ng-model="ticket.ticket" placeholder="Example:Early Bird"></td>
+                                    <td><input type="text" style="text-align: center;border-right: 3px solid;" ng-model="ticket.quantity" placeholder="100"></td>
+                                    <td><input type="text" style="text-align: center;border-right: 3px solid;" ng-model="ticket.amount" ng-show="ticket.tickettype!='Free'"></td>
+                                    <td><label style="text-align: center;" ng-model="ticket.tickettype">{{ticket.tickettype}}</label></td>
+                                    <td><a class="button button-block button-positive" style="text-align: center;" ng-click="remove($index)">Delete</a></td>
                                 </tr>
                                 
                             </table>

@@ -14,7 +14,11 @@ h6 {
     font-family: 'Oswald';
 }
 /*my css*/
-
+.button-tiny{
+    min-height: 21px;
+    line-height: 16px;
+    font-size: 11px;
+}
 .mrt3{
     margin-top: 3px;
 }
@@ -143,6 +147,9 @@ fancy-select .list {
     background-color: #049CDB;
     color: #fff;
 }
+.botm{
+    border-bottom: 1px solid black !important;
+}
 .bar .title {
     font-size: 20px;
 }
@@ -177,7 +184,8 @@ border: 2px solid #D6D6D6;
 .smallheight
 {
     height:70px;
-    background: red;
-    color:white;
+    border: 3px solid #D6D6D6;
+    /* background: red; */
+    /* color:white; */
 
 }

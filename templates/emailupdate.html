@@ -1,0 +1,30 @@
+<ion-view title="Contact Details">
+    <ion-content class="has-header">
+        <div class="list">
+           <div class="item item-divider">
+               Update Contact Details
+           </div>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="Organizer Name" name="text" ng-model="organizer.name" ng-class="allvalidation[0].validation" required required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Address</span>
+                <input type="text" placeholder="Contact No" name="contact" ng-change="" ng-model="organizer.address" ng-class="allvalidation[1].validation" required required>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">phone</span>
+                <textarea placeholder="Organizer Description" name="description" ng-model="organizer.phone" ng-class="allvalidation[2].validation" required></textarea>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Email*</span>
+                <textarea placeholder="Organizer Description" name="description" ng-model="organizer.email" ng-class="allvalidation[2].validation" required></textarea>
+            </label>
+                
+            <!-- <a class="button button-full button-balanced" ng-click="">Save</a> -->
+            <input type="submit" name="submit" value="Save" class="button button-block button-balanced" ng-click="saveorganizer(organizer)">
+        </div>
+        <!--{{myupload|json}}
+        {{getlast()}}-->
+    </ion-content>
+</ion-view>

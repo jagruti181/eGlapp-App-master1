@@ -7,28 +7,26 @@
                 <div class="col">
                  Category
                  <p>
-                     <select ng-model="form.category" required>					
-                        <option value="category1">category1</option>
-                        <option value="category2">category2</option>
-                     </select>
+                     <select ng-model="category" class="form-control" ng-change="getevent(category,topic)" required>
+                   
+                    <option ng-repeat="category in categories" value="{{category.id}}">{{category.name}}</option>
+                </select>
                 </p>
                 </div>
                 <div class="col">
                  Sub Category
                  <p>
-                     <select ng-model="form.subcategory" required>					
-                        <option value="subcategory1">subcategory1</option>
-                        <option value="subcategory2">subcategory2</option>
-                     </select>
+                     <select ng-model="topic" class="form-control" ng-change="getevent(category,topic)" required>
+                    <option ng-repeat="topic in topics" value="{{topic.id}}">{{topic.name}}</option>
+                </select>
                 </p>
                 </div>
                 <div class="col">
                  Event
                  <p>
-                     <select ng-model="form.event" required>					
-                        <option value="event1">Bollywood Tourism1</option>
-                        <option value="event2">Chill Out</option>
-                     </select>
+                     <select ng-model="event" class="form-control" ng-change="geteventdetail(event)" required>
+                    <option ng-repeat="val in getev" value="{{val.id}}">{{val.title}}</option>
+                </select>
                 </p>
                 </div>
             </div>
@@ -36,8 +34,11 @@
                 <h4>{{alldata.title}}</h4>
             </div>
             <div class="row" ng-show="detail">
-               <div class="col">
+               <div class="col" ng-show="alldata.logo!=''">
                    <img src="{{'http://localhost/eglapp11/demo/'+alldata.logo}}" class="full-image">
+               </div>
+               <div class="col" ng-show="alldata.logo==''">
+                   <img src="{{'http://localhost/eglapp11/img/default_upload_logo.gif'}}" class="full-image">
                </div>
                <div class="col">
                     <h4>When</h4>
@@ -85,7 +86,8 @@
                              Pre qr Code Ad 
                          </td>
                          <td>
-                             <input type="text" class="inputborder">
+                             <input type="number" min="0" max="{{alldata.tickets[0].quantity - remainingpreqr}}" ng-model="sponsor.preqr" class="inputborder">
+                             {{alldata.tickets[0].quantity - remainingpreqr}} Remaining
                          </td>
                          <td>
                              $0
@@ -99,7 +101,8 @@
                              Post qr Code Ad 
                          </td>
                          <td>
-                             <input type="text" class="inputborder">
+                             <input type="number" min="0" max="{{alldata.tickets[0].quantity - remainingpostqr}}" class="inputborder" ng-model="sponsor.postqr" class="inputborder">
+                             {{alldata.tickets[0].quantity - remainingpostqr}} Remaining
                          </td>
                          <td>
                              $0
@@ -113,7 +116,8 @@
                              Email Reminder 
                          </td>
                          <td>
-                             <input type="text" class="inputborder">
+                             <input type="number" min="0" max="{{alldata.tickets[0].quantity - remainingreminder}}" class="inputborder" ng-model="sponsor.reminder">
+                     {{alldata.tickets[0].quantity - remainingreminder}} Remaining
                          </td>
                          <td>
                              $0
@@ -127,7 +131,8 @@
                              Email Confirmation 
                          </td>
                          <td>
-                             <input type="text" class="inputborder">
+                             <input type="number" min="0" max="{{alldata.tickets[0].quantity - remainingconfirmation}}" class="inputborder" ng-model="sponsor.confirmation">
+                     {{alldata.tickets[0].quantity - remainingconfirmation}} Remaining
                          </td>
                          <td>
                              $0
@@ -143,10 +148,10 @@
                          <td>
                             <div class="row">
                                 <div class="col">
-                                     <input type="text" class="inputborder"style="width:50px;" disabled>
+                                     <input type="text" class="inputborder" ng-model="sponsor.printval" style="width:50px;" disabled>
                                 </div>
                                 <div class="col">
-                                     <input type="text" class="inputborder"style="width:70px;">
+                                     <input type="number" min="0" max="{{printvalidate}}" class="inputborder" ng-model="sponsor.printimpression" style="width:70px;">
                                 </div>
                              </div>
                          </td>
@@ -173,40 +178,40 @@
                </div>
             <div class="row">
                 <div class="col">
-                    <div class="smallheight">
-                        26 Remaining
+                    <div class="smallheight" ng-class="greendiv[1]" ng-click="printtext(1,alldata.tickets[0].quantity - remaining[1])">
+                        {{alldata.tickets[0].quantity - remaining[1]}} Remaining
                     </div>
                 </div>
                 <div class="col">
-                    <div class="smallheight">
-                        26 Remaining
+                    <div class="smallheight" ng-class="greendiv[2]" ng-click="printtext(2,alldata.tickets[0].quantity - remaining[2])">
+                        {{alldata.tickets[0].quantity - remaining[2]}} Remaining
                     </div>
                 </div>
                 <div class="col">
-                    <div class="smallheight">
-                        26 Remaining
+                    <div class="smallheight" ng-class="greendiv[3]" ng-click="printtext(3,alldata.tickets[0].quantity - remaining[3])">
+                        {{alldata.tickets[0].quantity - remaining[3]}} Remaining
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="smallheight">
-                        26 Remaining
+                    <div class="smallheight" ng-class="greendiv[4]" ng-click="printtext(4,alldata.tickets[0].quantity - remaining[4])">
+                        {{alldata.tickets[0].quantity - remaining[4]}} Remaining
                     </div>
                 </div>
                 <div class="col">
-                    <div class="smallheight">
-                        26 Remaining
+                    <div class="smallheight" ng-class="greendiv[5]" ng-click="printtext(5,alldata.tickets[0].quantity - remaining[5])">
+                        {{alldata.tickets[0].quantity - remaining[5]}} Remaining
                     </div>
                 </div>
                 <div class="col">
-                    <div class="smallheight">
-                        26 Remaining
+                    <div class="smallheight" ng-class="greendiv[6]" ng-click="printtext(6,alldata.tickets[0].quantity - remaining[6])">
+                        {{alldata.tickets[0].quantity - remaining[6]}} Remaining
                     </div>
                 </div>
             </div>
         </div>
-        <a class="button button-full button-balanced" ng-click="onsubmit(form)">Save</a>
+        <a class="button button-full button-balanced" ng-click="savesponsor(sponsor)">Save</a>
         
     </ion-content>
 </ion-view>

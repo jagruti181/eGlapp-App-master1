@@ -347,7 +347,6 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
                 }, function (err) {
                     // Error
                     console.log(err);
-                    console.log("Error");
                 }, function (progress) {
                     // constant progress updates
                 console.log("progress");

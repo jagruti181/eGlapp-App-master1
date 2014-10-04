@@ -24,9 +24,9 @@
                 <!-- <span><img src="{{'http://localhost/eglapp11/demo/'+organizer.logo}}" width="200px" height="200px" ng-show="organizer.logo!=''"></span> -->
                 
                         <button class="button button-icon icon ion-android-camera" ng-click="takePicture();"></button>
-                        <img id="photoHolder" src="{{cameraimage}}" alt="" style="height:100%; margin-left:5px;"></img>
+                        <img  ng-src="{{cameraimage}}" alt="" style="height:100%; margin-left:5px;"></img>
                 
-                <!--............................................Filr upload..................................................-->
+                <!--............................................File upload..................................................-->
                 
                 <!-- <div class="upload-div" ng-controller="MyCtrl">
                     <div ng-init="httpMethod = 'POST';howToSend = 1;" ></div>

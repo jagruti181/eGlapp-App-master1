@@ -163,13 +163,12 @@
              </div>
             
             <label class="item item-input item-stacked-label">
-                <form action="http://localhost/eglapp11/admin/index.php/event/filee" method="POST" enctype="multipart/form-data">
                     <span class="input-label">Banner</span>
-                    <input type="file" name="file" id="file">
+                    <button class="button button-icon icon ion-image" ng-click="takePicture();"></button>
+                    <img ng-src="{{cameraimage}}" alt="" style="height:50px;width:50px; margin:5px;">
                     <p>
                     <button name="submit">Save</button>
                     </p>
-                </form>
             </label>
                <div>
                   <p>

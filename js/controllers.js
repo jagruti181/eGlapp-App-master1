@@ -384,11 +384,11 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	            if (check) {
                     if($scope.filename2 || $scope.filename2=="")
                     {
-                        organizer.logo =$scope.filename2;
+                        organizer.logo = "../img/"+$scope.filename2;
                     }else{
                         organizer.logo=organizer.logo;
                     }
-	                
+	                organizer.logo ="../img/"+$scope.filename2;
 	                console.log(organizer.logo);
 	                console.log(organizer);
 	                RestService.saveorganizer(organizer).success(saved);
@@ -556,6 +556,65 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
             $scope.savebutton=false;
 
 	    };
+    
+    
+    
+    
+        
+    //Capture Image
+    $scope.cameraimage = "eglapp.png";
+    $scope.takePicture = function () {
+        var options = {
+            quality: 40,
+            destinationType: Camera.DestinationType.NATIVE_URI,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            encodingType: Camera.EncodingType.JPEG
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+            // Success! Image data is here
+            console.log("here in upload image");
+            console.log(imageData);
+            if (imageData.substring(0,21)=="content://com.android") {
+                var photo_split=imageData.split("%3A");
+                imageData="content://media/external/images/media/"+photo_split[1];
+            }
+            $scope.cameraimage = imageData;
+            $scope.uploadPhoto();
+        }, function (err) {
+            // An error occured. Show a message to the user
+        });
+
+        //Upload photo
+        var server = 'http://digitalmindsinc.co/eglapp11/admin/index.php/event/uploadfile';
+
+        //File Upload parameters: source, filePath, options
+        $scope.uploadPhoto = function () {
+            console.log("function called");
+            $cordovaFile.uploadFile(server, $scope.cameraimage, options)
+                .then(function (result) {
+                    console.log(result);
+                    result = JSON.parse(result.response);
+                    $scope.filename2 = result.file_name;
+                
+                    //$scope.addretailer.store_image = $scope.filename2;
+
+                }, function (err) {
+                    // Error
+                    console.log(err);
+                }, function (progress) {
+                    // constant progress updates
+                console.log("progress");
+                });
+
+        };
+        
+
+    }
+    
+    
+    
+    
 	    $scope.savesponsor = function (sponsor) {
 	        //sponsor.image = $(".myiframe").contents().find("body img").attr("src");
 	        sponsor.user = $scope.uid;
@@ -1321,7 +1380,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
                 
                 case "export" :
                 {
-                    $location.url("http://localhost/eglapp11/admin/index.php/event/exportcsv?uid="+$scope.uid+"&eid="+$scope.selectedevent);
+                    $location.url("http://digitalmindsinc.co/eglapp11/admin/index.php/event/exportcsv?uid="+$scope.uid+"&eid="+$scope.selectedevent);
                 }
         }
     };

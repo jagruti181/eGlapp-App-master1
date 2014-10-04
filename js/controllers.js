@@ -322,6 +322,8 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 
         $cordovaCamera.getPicture(options).then(function (imageData) {
             // Success! Image data is here
+            console.log("here in upload image");
+            console.log(imageData);
             if (imageData.substring(0,21)=="content://com.android") {
                 var photo_split=imageData.split("%3A");
                 imageData="content://media/external/images/media/"+photo_split[1];
@@ -343,7 +345,8 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
                     console.log(result);
                     result = JSON.parse(result.response);
                     $scope.filename2 = result.file_name;
-                    $scope.addretailer.store_image = $scope.filename2;
+                
+                    //$scope.addretailer.store_image = $scope.filename2;
 
                 }, function (err) {
                     // Error
@@ -354,6 +357,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
                 });
 
         };
+        
 
     }
     
@@ -364,7 +368,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	        };
 	        $scope.saveorganizer = function (organizer) {
                 console.log(organizer.logo);
-                console.log($scope.getlast());
+               // console.log($scope.getlast());
 	            $scope.allvalidation = [{
 	                field: $scope.organizer.firstname,
 	                validation: ""
@@ -378,9 +382,9 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	            var check = formvalidation();
 	            console.log(check);
 	            if (check) {
-                    if($scope.getlast() || $scope.getlast()=="")
+                    if($scope.filename2 || $scope.filename2=="")
                     {
-                        organizer.logo =$scope.getlast();
+                        organizer.logo =$scope.filename2;
                     }else{
                         organizer.logo=organizer.logo;
                     }

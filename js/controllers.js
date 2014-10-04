@@ -340,14 +340,13 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
             $cordovaFile.uploadFile(server, $scope.cameraimage, options)
                 .then(function (result) {
                     console.log(result);
-//                    result = JSON.parse(result.response);
-//                    filenameee = result;
-//                    $scope.filename2 = result.file_name;
-//                    $scope.addretailer.store_image = $scope.filename2;
+                    result = JSON.parse(result.response);
+                    $scope.filename2 = result.file_name;
+                    $scope.addretailer.store_image = $scope.filename2;
 
                 }, function (err) {
                     // Error
-                    //console.log(err);
+                    console.log(err);
                     console.log("Error");
                 }, function (progress) {
                     // constant progress updates

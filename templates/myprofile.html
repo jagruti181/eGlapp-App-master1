@@ -1,9 +1,9 @@
 <ion-view title="Organizer Profile">
     <ion-content class="has-header">
         <div class="list">
-           <div class="item item-divider">
-               Add Organizer Details
-           </div>
+            <div class="item item-divider">
+                Add Organizer Details
+            </div>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Organizer Name*</span>
                 <input type="text" placeholder="Organizer Name" name="text" ng-model="organizer.firstname" ng-class="allvalidation[0].validation" required required>
@@ -22,12 +22,12 @@
             </label>
             <label>
                 <!-- <span><img src="{{'http://localhost/eglapp11/demo/'+organizer.logo}}" width="200px" height="200px" ng-show="organizer.logo!=''"></span> -->
-                
-                        <button class="button button-icon icon ion-android-camera" ng-click="takePicture();"></button>
-                        <img  ng-src="{{cameraimage}}" alt="" style="height:100%; margin-left:5px;"></img>
-                
+
+                <button class="button button-icon icon ion-image" ng-click="takePicture();"></button>
+                <img ng-src="{{cameraimage}}" alt="" style="height:50px;width:50px; margin-left:5px;">
+
                 <!--............................................File upload..................................................-->
-                
+
                 <!-- <div class="upload-div" ng-controller="MyCtrl">
                     <div ng-init="httpMethod = 'POST';howToSend = 1;" ></div>
                 
@@ -57,10 +57,10 @@
                 
                     </div>
                 </div> -->
-                
+
                 <!--............................................Filr upload..................................................-->
-                
-                
+
+
             </label>
             <!-- <a class="button button-full button-balanced" ng-click="">Save</a> -->
             <input type="submit" name="submit" value="Save" class="button button-block button-balanced" ng-click="saveorganizer(organizer)">

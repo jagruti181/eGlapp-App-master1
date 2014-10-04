@@ -311,6 +311,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     
     
     //Capture Image
+    $scope.cameraimage = "eglapp.png";
     $scope.takePicture = function () {
         var options = {
             quality: 40,

@@ -34,15 +34,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
         }
       }
     })
-    .state('app.emailupdate', {
-        url: "/emailupdate/:id",
-      views: {
-        'menuContent' :{
-            templateUrl: "templates/emailupdate.html",
-            controller: 'EmailUpdateCtrl'
-        }
-      }
-    })
     .state('app.mycontacts', {
         url: "/mycontacts",
       views: {

@@ -321,6 +321,10 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 
         $cordovaCamera.getPicture(options).then(function (imageData) {
             // Success! Image data is here
+            if (imageData.substring(0,21)=="content://com.android") {
+                var photo_split=imageData.split("%3A");
+                imageData="content://media/external/images/media/"+photo_split[1];
+            }
             $scope.cameraimage = imageData;
             $scope.uploadPhoto();
         }, function (err) {

@@ -6,23 +6,29 @@
            </div>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Name</span>
-                <input type="text" placeholder="Organizer Name" name="text" ng-model="organizer.name" ng-class="allvalidation[0].validation" required required>
+                <input type="text" placeholder="Organizer Name" name="text" ng-model="form.name">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Address</span>
-                <input type="text" placeholder="Contact No" name="contact" ng-change="" ng-model="organizer.address" ng-class="allvalidation[1].validation" required required>
+                <input type="text" placeholder="Contact No" name="contact" ng-change="" ng-model="form.address">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">phone</span>
-                <textarea placeholder="Organizer Description" name="description" ng-model="organizer.phone" ng-class="allvalidation[2].validation" required></textarea>
+                <textarea placeholder="Organizer Description" name="description" ng-model="form.phone"></textarea>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Email*</span>
-                <textarea placeholder="Organizer Description" name="description" ng-model="organizer.email" ng-class="allvalidation[2].validation" required></textarea>
+                <textarea placeholder="Organizer Description" name="description" ng-model="form.email" ng-class="allvalidation[0].validation" required></textarea>
             </label>
-                
-            <!-- <a class="button button-full button-balanced" ng-click="">Save</a> -->
-            <input type="submit" name="submit" value="Save" class="button button-block button-balanced" ng-click="saveorganizer(organizer)">
+            <div class="row">
+            <div class="col">
+            <input type="submit" name="submit" value="Save" class="button button-block button-balanced" ng-click="saveeditemail(form)">
+                </div>
+                <div class="col">
+            <!-- <input type="submit" name="submit" value="Cancel" class="button button-block button-balanced" ng-click="canceleditemail()"> -->
+                    <a class="button button-block button-balanced" href="#/app/mycontacts">Cancel</a>
+                </div>
+            </div>
         </div>
         <!--{{myupload|json}}
         {{getlast()}}-->

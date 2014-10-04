@@ -24,7 +24,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       templateUrl: "templates/menu.html",
       controller: 'AppCtrl'
     })
-
+	
+    .state('app.emailupdate', {
+        url: "/emailupdate/:id",
+      views: {
+        'menuContent' :{
+            templateUrl: "templates/emailupdate.html",
+            controller: 'EmailUpdateCtrl'
+        }
+      }
+    })
     .state('app.emailupdate', {
         url: "/emailupdate/:id",
       views: {

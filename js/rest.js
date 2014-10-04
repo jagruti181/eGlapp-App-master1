@@ -87,6 +87,18 @@ var restservicemod = angular.module('restservicemod', [])
         findoneuser: function (data) {
             return $http.get(adminurl+"user/findone",{params: {id:data}});
         },
+        getemail: function(uid,eid){
+            return $http.get(adminurl+"event/getemail?uid="+uid+"&eid="+eid,{});
+            
+        },
+        getemails: function(id){
+            return $http.get(adminurl+"event/getemails?id="+id,{});
+            
+        },
+        saveemails: function(data){
+            return $http.get(adminurl+"event/saveemails",{params:data});
+            
+        },
         logout: function () {
             $.jStorage.flush();
             return $http.get(adminurl+"user/logout",{});

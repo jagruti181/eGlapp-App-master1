@@ -1336,4 +1336,62 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     //aunthenticate
     console.log($stateParams.id);
     
+})
+
+.controller('EmailUpdateCtrl', function($scope, $stateParams, RestService) {
+    //aunthenticate
+        if(RestService.authenticate()!=false)
+          {
+            $scope.uid=authenticate.id;
+              console.log(authenticate.id);
+            $scope.isloggedin=1;
+            $scope.loginlogout="Logout";
+          }
+    //aunthenticate
+    //start autofill information
+    console.log($stateParams.id);
+	        var emailsget = function (data, status) {
+                console.log(data);
+	            $scope.form = data;
+	        };
+    RestService.getemails($stateParams.id).success(emailsget);
+    //end autofill information
+    
+    //start saving data and validqation
+        $scope.allvalidation = [];
+	        var emailedited = function (data, status) {
+	            console.log(data);
+                alert("Contact Saved Successfully");
+	            //RestService.getemail($scope.uid, data.eid).success(getemail);
+	            $scope.editemaildiv = false;
+	        };
+
+	        $scope.saveeditemail = function (form) {
+	            $scope.allvalidation = [{
+	                field: $scope.form.email,
+	                validation: ""
+             }];
+	            $scope.form.id = $stateParams.id;
+	            var check = formvalidation();
+	            console.log(check);
+	            if (check) {
+	                console.log("completed");
+	                RestService.saveemails(form).success(emailedited);
+	            }
+	        };
+
+
+	        function formvalidation() {
+	            var isvalid2 = true;
+	            for (var i = 0; i < $scope.allvalidation.length; i++) {
+	                console.log("checking");
+	                console.log($scope.allvalidation[i].field);
+	                if ($scope.allvalidation[i].field == "" || !$scope.allvalidation[i].field) {
+	                    $scope.allvalidation[i].validation = "ng-dirty";
+	                    isvalid2 = false;
+	                }
+	            }
+	            return isvalid2;
+	        }
+    //end saving data and validqation
 });

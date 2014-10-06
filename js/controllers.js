@@ -1,5 +1,6 @@
 var mypopup=0;
-
+var bigpath="http://localhost/eglapp11/";
+var server = 'http://digitalmindsinc.co/eglapp11/admin/index.php/';
 var authenticate=$.jStorage.get("authenticate");
 window.uploadUrl = 'upload.php';
 angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngCordova'])
@@ -288,6 +289,9 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 .controller('MyprofileCtrl', function($scope, $stateParams, RestService, $http, $timeout, $upload, $cordovaCamera, $cordovaFile) {
     
      console.log("my upload");
+        $scope.myimgapath=bigpath;
+     console.log($scope.myimgapath);
+    
      $scope.myupload=RestService.getuploads();
     $scope.getlast=function() {
         return $scope.myupload[$scope.myupload.length-1];
@@ -311,7 +315,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     
     
     //Capture Image
-    $scope.cameraimage = "eglapp.png";
+    $scope.cameraimage = bigpath+"img/favicon.png";
     $scope.takePicture = function () {
         var options = {
             quality: 40,
@@ -335,12 +339,12 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
         });
 
         //Upload photo
-        var server = 'http://digitalmindsinc.co/eglapp11/admin/index.php/event/uploadfile';
+        var serverpath = server+'event/uploadfile';
 
         //File Upload parameters: source, filePath, options
         $scope.uploadPhoto = function () {
             console.log("function called");
-            $cordovaFile.uploadFile(server, $scope.cameraimage, options)
+            $cordovaFile.uploadFile(serverpath, $scope.cameraimage, options)
                 .then(function (result) {
                     console.log(result);
                     result = JSON.parse(result.response);
@@ -414,6 +418,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 .controller('SponsorCtrl', function($scope, $stateParams, RestService, CategoryService, TopicService) {
     
     //alert(geoplugin_city());
+    $scope.myimagepath=bigpath;
     $scope.sponsor = {};
 	    $scope.detail = false;
         $scope.greendiv = [];
@@ -562,7 +567,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     
         
     //Capture Image
-    $scope.cameraimage = "eglapp.png";
+    $scope.cameraimage = bigpath+"img/favicon.png";
     $scope.takePicture = function () {
         var options = {
             quality: 40,
@@ -586,12 +591,12 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
         });
 
         //Upload photo
-        var server = 'http://digitalmindsinc.co/eglapp11/admin/index.php/event/uploadfile';
+        var serverpath = server+'event/uploadfilesponsor';
 
         //File Upload parameters: source, filePath, options
         $scope.uploadPhoto = function () {
             console.log("function called");
-            $cordovaFile.uploadFile(server, $scope.cameraimage, options)
+            $cordovaFile.uploadFile(serverpath, $scope.cameraimage, options)
                 .then(function (result) {
                     console.log(result);
                     result = JSON.parse(result.response);
@@ -616,10 +621,9 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     
     
 	    $scope.savesponsor = function (sponsor) {
-	        //sponsor.image = $(".myiframe").contents().find("body img").attr("src");
+	        sponsor.image = $scope.filename2;
 	        sponsor.user = $scope.uid;
 	        sponsor.event = $scope.alldata.id;
-	        //$("input#iimage").val("hello");
 	        console.log(sponsor.image);
 	        console.log(sponsor);
 	        RestService.savesponsor(sponsor).success(sponsor1);

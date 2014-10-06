@@ -42,7 +42,7 @@ var restservicemod = angular.module('restservicemod', [])
         },
         update: function (data) {
             return $http({
-                url: 'http://digitalmindsinc.co/eglapp11/admin/index.php/event/update',
+                url: adminurl+'event/update',
                 method: "POST",
                data: {'id':data.id,
                       'title':data.title,
@@ -161,7 +161,7 @@ var restservicemod = angular.module('restservicemod', [])
         },
         createevent: function (data) {
             return $http({
-                url: 'http://digitalmindsinc.co/eglapp11/admin/index.php/event/create',
+                url: adminurl+'event/create',
                 method: "POST",
                data: {'title':data.title,
                       'locationlat':data.locationlat,

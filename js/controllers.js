@@ -1,5 +1,5 @@
 var mypopup=0;
-var bigpath="http://localhost/eglapp11/";
+var bigpath="http://digitalmindsinc.co/eglapp11/";
 var server = 'http://digitalmindsinc.co/eglapp11/admin/index.php/';
 var authenticate=$.jStorage.get("authenticate");
 window.uploadUrl = 'upload.php';
@@ -252,6 +252,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
        // RestService.find().success(home);
 })        
 .controller('MyeventsCtrl', function($scope, $stateParams, RestService) {
+        $scope.imagepath=bigpath;
        var home=function(data, status){
             console.log(data);
             $scope.find=data;
@@ -415,7 +416,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
        
     
 })       
-.controller('SponsorCtrl', function($scope, $stateParams, RestService, CategoryService, TopicService) {
+.controller('SponsorCtrl', function($scope, $stateParams, RestService, CategoryService, TopicService, $http, $timeout, $upload, $cordovaCamera, $cordovaFile) {
     
     //alert(geoplugin_city());
     $scope.myimagepath=bigpath;
@@ -562,10 +563,6 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 
 	    };
     
-    
-    
-    
-        
     //Capture Image
     $scope.cameraimage = bigpath+"img/favicon.png";
     $scope.takePicture = function () {
@@ -671,7 +668,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     //savedevents#########################3
 })
 
-.controller('UpdateeventCtrl', function($scope, $stateParams, RestService, CategoryService, TopicService, $filter) {
+.controller('UpdateeventCtrl', function($scope, $stateParams, RestService, CategoryService, TopicService, $filter, $http, $timeout, $upload, $cordovaCamera, $cordovaFile) {
     $scope.loginlogout="Login";
     $scope.isloggedin=0;
     $scope.form={};
@@ -786,6 +783,56 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 
 	        };
 	        //####################################################3DATE VALIDATION###########################################################
+    //Capture Image
+    $scope.cameraimage = bigpath+"img/favicon.png";
+    $scope.takePicture = function () {
+        var options = {
+            quality: 40,
+            destinationType: Camera.DestinationType.NATIVE_URI,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            encodingType: Camera.EncodingType.JPEG
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+            // Success! Image data is here
+            console.log("here in upload image");
+            console.log(imageData);
+            if (imageData.substring(0,21)=="content://com.android") {
+                var photo_split=imageData.split("%3A");
+                imageData="content://media/external/images/media/"+photo_split[1];
+            }
+            $scope.cameraimage = imageData;
+            $scope.uploadPhoto();
+        }, function (err) {
+            // An error occured. Show a message to the user
+        });
+
+        //Upload photo
+        var serverpath = server+'event/uploadfileevent';
+
+        //File Upload parameters: source, filePath, options
+        $scope.uploadPhoto = function () {
+            console.log("function called");
+            $cordovaFile.uploadFile(serverpath, $scope.cameraimage, options)
+                .then(function (result) {
+                    console.log(result);
+                    result = JSON.parse(result.response);
+                    $scope.filename2 = result.file_name;
+                
+                    //$scope.addretailer.store_image = $scope.filename2;
+
+                }, function (err) {
+                    // Error
+                    console.log(err);
+                }, function (progress) {
+                    // constant progress updates
+                console.log("progress");
+                });
+
+        };
+        
+
+    }
     
         var event = function (data, status) {
 	            console.log(data.tickets);
@@ -820,9 +867,6 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	                field: $scope.form.venue,
 	                validation: ""
              }, {
-	                field: $scope.form.location,
-	                validation: ""
-             }, {
 	                field: $scope.form.street,
 	                validation: ""
              }, {
@@ -855,17 +899,17 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	            var check = formvalidation();
 	            console.log(check);
 	            if (check) {
+                    
 	                console.log("completed");
-	                $scope.logo = $(".myiframe").contents().find("body img").attr("src");
 	                console.log("Myform:");
 	                console.log(form);
-
-
-	                if ($scope.logo) {
-	                    form.logo = $scope.logo;
-	                }
-	                console.log(form.logo);
-
+                    if($scope.filename2 || $scope.filename2=="")
+                    {
+                        form.logo=form.logo;
+                    }else{
+                        form.logo=$scope.filename2;
+                    }
+                    
 	                form.ticketname = form.tickets[0].ticket;
 	                form.ticketqty = form.tickets[0].quantity;
 	                form.ticketprice = form.tickets[0].amount;
@@ -924,7 +968,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 })
 
 
-.controller('CreateeventCtrl', function($scope, $stateParams, RestService, TopicService, CategoryService, $filter) {
+.controller('CreateeventCtrl', function($scope, $stateParams, RestService, TopicService, CategoryService, $filter, $http, $timeout, $upload, $cordovaCamera, $cordovaFile) {
     //aunthenticate
         var user=function(data,status){
             console.log(data);
@@ -999,6 +1043,60 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
           console.log("index:"+index);
         $scope.form.tickets.splice(index, 1);
      };
+    
+    
+     //Capture Image
+    $scope.cameraimage = bigpath+"img/favicon.png";
+    $scope.takePicture = function () {
+        var options = {
+            quality: 40,
+            destinationType: Camera.DestinationType.NATIVE_URI,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            encodingType: Camera.EncodingType.JPEG
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+            // Success! Image data is here
+            console.log("here in upload image");
+            console.log(imageData);
+            if (imageData.substring(0,21)=="content://com.android") {
+                var photo_split=imageData.split("%3A");
+                imageData="content://media/external/images/media/"+photo_split[1];
+            }
+            $scope.cameraimage = imageData;
+            $scope.uploadPhoto();
+        }, function (err) {
+            // An error occured. Show a message to the user
+        });
+
+        //Upload photo
+        var serverpath = server+'event/uploadfileevent';
+
+        //File Upload parameters: source, filePath, options
+        $scope.uploadPhoto = function () {
+            console.log("function called");
+            $cordovaFile.uploadFile(serverpath, $scope.cameraimage, options)
+                .then(function (result) {
+                    console.log(result);
+                    result = JSON.parse(result.response);
+                    $scope.filename2 = result.file_name;
+                
+                    //$scope.addretailer.store_image = $scope.filename2;
+
+                }, function (err) {
+                    // Error
+                    console.log(err);
+                }, function (progress) {
+                    // constant progress updates
+                console.log("progress");
+                });
+
+        };
+        
+
+    }
+    
+    
      //########################################################################################
     var topics = function (data, status) {
                 $scope.topics = data;
@@ -1062,6 +1160,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 	            if (check) {
             console.log(form);
            // alert(form);
+            form.logo=$scope.filename2;
         form.ticketname=form.tickets[0].name;
         form.ticketqty=form.tickets[0].qty;
         form.ticketprice=form.tickets[0].price;
@@ -1226,7 +1325,7 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
     $scope.del=true;
     $scope.send=true;
     $scope.delete=true;
-    
+    $scope.serverpath=server;
 	        var myevent = function (data, status) {
 	            console.log(data);
 	            // $scope.find=data;
@@ -1388,20 +1487,6 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
                 }
         }
     };
-    
-})
-
-.controller('EmailUpdateCtrl', function($scope, $stateParams, RestService) {
-    //aunthenticate
-        if(RestService.authenticate()!=false)
-          {
-            $scope.uid=authenticate.id;
-              console.log(authenticate.id);
-            $scope.isloggedin=1;
-            $scope.loginlogout="Logout";
-          }
-    //aunthenticate
-    console.log($stateParams.id);
     
 })
 

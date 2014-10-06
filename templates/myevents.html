@@ -9,7 +9,7 @@
             <div ng-repeat="val in find">
                 <div>
                    <a class="item item-thumbnail-left" href="#/app/discover/inner/{{val.id}}">
-                    <img src="{{'http://localhost/eglapp11/demo/'+val.logo}}">
+                    <img src="{{imagepath+'admin/upload/event/'+val.logo}}">
                     <h2>{{val.title}}</h2>
                     <p>{{val.location}}</p>
                     <span class="date">{{val.startdate}} @ {{val.starttime}}<span>

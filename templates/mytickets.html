@@ -3,6 +3,7 @@
         <div class="list">
 
             <!--div class="item item-divider">Upcoming</div-->
+            <qr-scanner width="400" height="300" ng-success="onSuccess(data)" ng-error="onError(error)" />
             <a class="item item-avatar" href="#/app/printticket/{{myticket.user}}/{{myticket.eventid}}" ng-repeat="myticket in data">
                 <img src="{{'http://localhost/eglapp11/demo/'+myticket.logo}}">
                 <h2>{{myticket.eventtitle}}</h2>

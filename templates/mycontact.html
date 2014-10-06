@@ -13,7 +13,7 @@
                         <option value="selectall" ng-disabled="sel">Select All</option>
                         <option value="deleteall" ng-disabled="del">Delete All</option>
                     </select>
-                    <a href="http://localhost/eglapp11/admin/index.php/event/exportcsv?uid={{uid}}&eid={{selectedevent}}" target="_blank" class="button button-tiny  button-assertive" ng-disabled="exp">Export</a>
+                    <a href="{{serverpath}}event/exportcsv?uid={{uid}}&eid={{selectedevent}}" target="_blank" class="button button-tiny  button-assertive" ng-disabled="exp">Export</a>
                 </p>
                 </div>
                 <div class="col col-40">

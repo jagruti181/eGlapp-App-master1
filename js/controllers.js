@@ -946,7 +946,20 @@ angular.module('starter.controllers', ['restservicemod','angularFileUpload','ngC
 })
 
 
-.controller('MyticketsCtrl', function($scope, $stateParams, RestService) {
+.controller('MyticketsCtrl', function($scope, $stateParams, RestService, $cordovaBarcodeScanner) {
+    //Barcode Scanner
+    $scope.scanBarcode = function() {
+        $cordovaBarcodeScanner.scan().then(function(imageData) {
+            // Success! Barcode data is here
+            console.log(imageData);
+            $scope.barcodeData = imageData;
+        }, function(err) {
+            // An error occured. Show a message to the user
+
+        });
+    };
+    
+    
     $scope.loginlogout="Login";
     $scope.isloggedin=0;
     var userticket=function(data,status){
